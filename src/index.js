@@ -4,13 +4,11 @@ import $ from 'jquery';
 import './main.css';
 
 $(function() {
-	var projectTop = $('#projects').offset().top;
-	var contactTop = $('#contact').offset().top;
 	var about = $('a[href="#about"]');
 	var projects = $('a[href="#projects"]');
 	var contact = $('a[href="#contact"]');
-
-	//
+	var projectTop = 0;
+	var contactTop = 0;
 
 	//React function to create a project element
 	function Project(props) {
@@ -98,6 +96,16 @@ $(function() {
 		moveImage()
 	);
 
+	//gets sizes of the tops of the main divs to be used with the linkDecoration function
+	//so it doesn't have to check every time a user scrolls
+	function getOffsets() {
+		projectTop = $('#projects').offset().top;
+		contactTop = $('#contact').offset().top;
+	}
+	//gets the initial tops of the divs once the images have loaded completely
+	$(window).on('load', function() {
+		getOffsets();
+	});
 
 	//animation for clicking on one of the nav bar links
 	$(document).on('click', '.navlink', function(event){
@@ -159,6 +167,7 @@ $(function() {
 
 	//called each time the page is resized
 	$(window).on('resize', function() {
+		getOffsets();
 		moveImage();
 	});
 });
