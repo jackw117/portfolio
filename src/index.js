@@ -93,8 +93,16 @@ $(function() {
 	ReactDOM.render(
 		<Projects />,
 		document.getElementById('projects'),
-		moveImage()
+		startingFunctions()
 	);
+
+	function startingFunctions() {
+		$(document).ready(function() {
+			getOffsets();
+			moveImage();
+		});
+	}
+
 
 	//gets sizes of the tops of the main divs to be used with the linkDecoration function
 	//so it doesn't have to check every time a user scrolls
@@ -148,26 +156,23 @@ $(function() {
 	//places the image on even rows in the projects table in the left column when
 	//window size is over 974 and below the description on anything less
 	function moveImage() {
-		$(document).ready(function() {
-			$('.imgDiv').each(function( index ) {
-				if ($(window).width() <= 974) {
-					if (index % 2 === 1) {
-						$(this).insertAfter($(this).closest('.container').children('.desc'));
-					}
-					$(this).css('margin-top', '35px');
-				} else {
-					if (index % 2 === 1) {
-						$(this).insertBefore($(this).closest('.container').children('.desc'));
-					}
-					$(this).css('margin-top', '0px');
+		$('.imgDiv').each(function( index ) {
+			if ($(window).width() <= 974) {
+				if (index % 2 === 1) {
+					$(this).insertAfter($(this).closest('.container').children('.desc'));
 				}
-			});
+				$(this).css('margin-top', '35px');
+			} else {
+				if (index % 2 === 1) {
+					$(this).insertBefore($(this).closest('.container').children('.desc'));
+				}
+				$(this).css('margin-top', '0px');
+			}
 		});
 	}
 
 	//called each time the page is resized
 	$(window).on('resize', function() {
-		getOffsets();
-		moveImage();
+		startingFunctions();
 	});
 });
