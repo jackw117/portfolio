@@ -10,6 +10,8 @@ $(function() {
 	var projects = $('a[href="#projects"]');
 	var contact = $('a[href="#contact"]');
 
+	//
+
 	//React function to create a project element
 	function Project(props) {
 		const li = props.listItems;
