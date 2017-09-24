@@ -46,11 +46,22 @@ $(function() {
 					title="StreamSurfer"
 					date="January 2017 - May 2017"
 					desc="A search engine to find sources to stream movies and TV shows.
-					Also acts as a database containing information on shows or movies similar to IMDb."
+					Also acts as a database containing information on shows or movies similar to IMDb and user lists."
 					listItems={["C#", "PostgreSQL", ".NET Core", "REST", "MVC"]}
 					href="https://github.com/jackw117/stream-surfer"
 					image="img/ss-home.png"
 					alt="StreamSurfer home image"
+				/>
+
+				<Project
+					title="StreamSurfer Mobile"
+					date="February 2017 - March 2017"
+					desc="An Android application for StreamSurfer.
+					The only added feature on the mobile app is the option to have notifications sent when a show on a user list is updated."
+					listItems={["Android", "Java", "MVC"]}
+					href="https://github.com/jackw117/stream-surfer-android"
+					image="img/ssa.png"
+					alt="StreamSurfer Mobile search image"
 				/>
 
 				<Project
@@ -59,9 +70,9 @@ $(function() {
 					desc="An Android application that uses an online JSON file to generate quizzes.
 					Quiz information is stored in a singleton repository for easy access throughout the app."
 					listItems={["Android", "Java", "MVC"]}
-					href=""
-					image=""
-					alt=""
+					href="https://github.com/jackw117/quizdroid"
+					image="img/qd.png"
+					alt="QuizDroid home screen"
 				/>
 
 				<Project
@@ -100,6 +111,7 @@ $(function() {
 		$(document).ready(function() {
 			getOffsets();
 			moveImage();
+			linkDecoration();
 		});
 	}
 

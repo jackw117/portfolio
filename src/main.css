@@ -134,8 +134,13 @@ th, td {
 	margin-right: 5px;
 }
 
+.imgDiv {
+	text-align: center;
+}
+
 .imgDiv img {
 	max-width: 100%;
+	max-height: 500px;
 	border-radius: 10px;
 }
 
