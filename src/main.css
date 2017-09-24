@@ -80,12 +80,16 @@ th, td {
 	background-color: #333;
 }
 
-#contactTable td {
-	width: 33%;
+#contactContainer {
+	text-align: center;
 }
 
-#contactTable a {
+#contactContainer a {
 	font-size: 20px;
+}
+
+#contactContainer div {
+	margin-bottom: 10px;
 }
 
 #name {
@@ -188,11 +192,4 @@ th, td {
     display: inline-block;
     vertical-align: middle;
     float: none;
-}
-
-@media screen and (max-width: 992px) {
-	/*#projects div:nth-child(even) {
-		display: flex;
-		flex-direction: column-reverse;
-	}*/
 }
