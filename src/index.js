@@ -149,19 +149,19 @@ $(function() {
   function linkDecoration() {
   	var current = $(document).scrollTop();
   	if (current >= 0 && current < projectTop - 50) {
-  		about.css('text-decoration', 'underline');
-  		projects.css('text-decoration', 'none');
-  		contact.css('text-decoration', 'none');
+  		about.css('color', '#fff');
+  		projects.css('color', '#ccc');
+  		contact.css('color', '#ccc');
   	}
   	else if (current >= projectTop - 50 && current < contactTop - 50) {
-  		about.css('text-decoration', 'none');
-  		projects.css('text-decoration', 'underline');
-  		contact.css('text-decoration', 'none');
+  		about.css('color', '#ccc');
+  		projects.css('color', '#fff');
+  		contact.css('color', '#ccc');
   	}
   	if ((current + $(window).height()) > $(document).height() - $('#contact').outerHeight()) {
-  		about.css('text-decoration', 'none');
-  		projects.css('text-decoration', 'none');
-  		contact.css('text-decoration', 'underline');
+  		about.css('color', '#ccc');
+  		projects.css('color', '#ccc');
+  		contact.css('color', '#fff');
   	}
   }
 

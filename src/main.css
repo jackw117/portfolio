@@ -44,6 +44,11 @@ th, td {
 #about {
 	background-color: #337ab7;
 	color: white;
+	background: hsl(208, 56%, 46%); /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(right bottom, hsl(166, 56%, 46%), hsl(208, 56%, 46%)); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(top left, hsl(166, 56%, 46%), hsl(208, 56%, 46%)); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(top left, hsl(166, 56%, 46%), hsl(208, 56%, 46%)); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to top left, hsl(166, 56%, 46%), hsl(208, 56%, 46%)); /* Standard syntax */
 }
 
 #about p {
@@ -101,6 +106,7 @@ th, td {
 
 #projects {
 	padding-bottom: 0px!important;
+	padding-top: 0px!important;
 }
 
 #projects h2 {
@@ -150,11 +156,11 @@ th, td {
 
 .navlink {
 	text-decoration: none;
-	color: white!important;
+	font-weight: bold;
 	margin-left: 20px;
 }
 
-.navlink:hover {
+.navlink:hover, .navlink:visited, .navlink:link, .navlink:active {
 	text-decoration: none;
 }
 
