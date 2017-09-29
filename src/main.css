@@ -44,10 +44,6 @@ table {
 	width: 100%;
 }
 
-th, td {
-	text-align: center;
-}
-
 #about {
 	color: white;
 	background: linear-gradient(to top left,rgba(213, 58, 58, 0.7),rgba(58, 77, 213, 0.7)),
@@ -122,7 +118,7 @@ th, td {
 #projects {
 	padding-bottom: 0px!important;
 	padding-top: 0px!important;
-	/*margin-top: 200px;*/
+	margin-top: 200px;
 }
 
 #projects h2 {
@@ -160,10 +156,38 @@ th, td {
 	/*display: block;
 	margin: auto;
 	width: 70%;*/
-	background: #efefef;
+	background: #eaeaea;
 	border-radius: 10px;
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+#skillsContainer h1 {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+#skillsContainer hr {
+	border-top: 1px solid #000;
+}
+
+#skillsContent {
+	text-align: left;
 	padding: 20px;
+}
+
+#skillsContent td, th {
+	padding-left: 12.5%;
+}
+
+#skillsContent td img {
+	max-height: 30px;
+}
+
+#skillsHeader {
+	background: #f5f5f5;
+	width: 100%;
+	border-radius: 10px 10px 0 0;
+	padding: 18px;
 }
 
 #skillsTable td, #skillsTable th {
@@ -268,8 +292,16 @@ th, td {
 }
 
 @media only screen and (max-width: 992px) {
+	h1 {
+		font-size: 40px!important;
+	}
+
 	#about {
 		padding-bottom: 35px;
+	}
+
+	#name {
+		font-size: 14px!important;
 	}
 
 	#projects {
@@ -280,5 +312,9 @@ th, td {
 		position: static;
 		margin-top: 35px;
 		margin-bottom: 35px;
+	}
+
+	.navlink {
+		margin-left: 5px;
 	}
 }
