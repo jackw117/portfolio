@@ -1,7 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import WOW from 'wow.js'
 import './main.css';
+import './animate.css';
+
+const wow = new WOW({
+  boxClass: 'wow',
+  animateClass: 'animated',
+  offset: 0,
+  live: true
+});
+
+wow.init();
 
 $(function() {
 	var about = $('a[href="#about"]');
@@ -19,7 +30,7 @@ $(function() {
 
 		return (
 			<div className="row">
-				<div className="container">
+				<div className="container wow" data-wow-duration="2s">
 					<div className="col-xs-12 col-sm-12 col-md-6 desc vcenter">
 						<h1>{props.title}</h1>
 						<h2>{props.date}</h2>
@@ -176,8 +187,12 @@ $(function() {
 				$(this).css('margin-top', '35px');
 			} else {
 				if (index % 2 === 1) {
+					$(this).closest('.container').addClass('fadeInRight');
 					$(this).insertBefore($(this).closest('.container').children('.desc'));
+				} else {
+					$(this).closest('.container').addClass('fadeInLeft');
 				}
+
 				$(this).css('margin-top', '0px');
 			}
 		});

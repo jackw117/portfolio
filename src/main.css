@@ -5,7 +5,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-
 body {
 	font-family: 'Open Sans', sans-serif;
 }
@@ -118,7 +117,7 @@ table {
 #projects {
 	padding-bottom: 0px!important;
 	padding-top: 0px!important;
-	margin-top: 200px;
+	margin-top: 260px;
 }
 
 #projects h2 {
@@ -153,10 +152,7 @@ table {
 }
 
 #skillsContainer {
-	/*display: block;
-	margin: auto;
-	width: 70%;*/
-	background: #eaeaea;
+	background: #f5f5f5;
 	border-radius: 10px;
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
 }
@@ -164,10 +160,13 @@ table {
 #skillsContainer h1 {
 	margin-top: 0;
 	margin-bottom: 0;
+	color: #28333a;
 }
 
 #skillsContainer hr {
-	border-top: 1px solid #000;
+	border-top: 1px solid #d4d4d4;
+	width: 100%;
+	margin-bottom: -5px;
 }
 
 #skillsContent {
@@ -175,12 +174,21 @@ table {
 	padding: 20px;
 }
 
-#skillsContent td, th {
-	padding-left: 12.5%;
+#skillsContent td {
+	font-size: 18px;
+	color: #34434B;
+	letter-spacing: .5px;
+	font-weight: bold;
 }
 
-#skillsContent td img {
-	max-height: 30px;
+#skillsContent td, th {
+	padding-bottom: 15px;
+	padding-left: 8%;
+}
+
+#skillsContent img {
+	max-height: 20px;
+	padding-right: 10px;
 }
 
 #skillsHeader {
