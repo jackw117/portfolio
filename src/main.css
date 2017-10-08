@@ -181,7 +181,7 @@ table {
 	font-weight: bold;
 }
 
-#skillsContent td, th {
+#skillsContent td {
 	padding-bottom: 15px;
 	padding-left: 8%;
 }
@@ -320,6 +320,15 @@ table {
 		position: static;
 		margin-top: 35px;
 		margin-bottom: 35px;
+	}
+
+	#skillsContent img {
+		padding-right: 4px;
+	}
+
+	#skillsContent td {
+		padding-left: 0px;
+		font-size: 14px;
 	}
 
 	.navlink {
