@@ -49,6 +49,15 @@ $(function() {
 		);
 	}
 
+  function Skill(props) {
+    return (
+      <div className="col-xs-6 col-sm-6 col-md-4">
+        <img src={props.image} alt={props.alt}></img>
+        <span>{props.name}</span>
+      </div>
+    );
+  }
+
 	//React function to create multiple project elements with specified information
 	function Projects() {
 		return (
@@ -111,12 +120,111 @@ $(function() {
 		);
 	}
 
+  function Skills() {
+    return <div>
+      <Skill
+        image="img/icons/cs.png"
+        alt="C# icon"
+        name="C#"
+      />
+
+      <Skill
+        image="img/icons/asp.png"
+        alt="ASP.NET icon"
+        name="ASP.NET"
+      />
+
+      <Skill
+        image="img/icons/netfoundation.png"
+        alt=".NET Core icon"
+        name=".NET Core"
+      />
+
+      <Skill
+        image="img/icons/java.png"
+        alt="Java icon"
+        name="Java"
+      />
+
+      <Skill
+        image="img/icons/js.png"
+        alt="JavaScript icon"
+        name="JavaScript"
+      />
+
+      <Skill
+        image="img/icons/jquery.png"
+        alt="jQuery icon"
+        name="jQuery"
+      />
+
+      <Skill
+        image="img/icons/reactjs.png"
+        alt="React icon"
+        name="React"
+      />
+
+      <Skill
+        image="img/icons/angularjs.png"
+        alt="AngularJS icon"
+        name="AngularJS"
+      />
+
+      <Skill
+        image="img/icons/html5.png"
+        alt="HTML icon"
+        name="HTML"
+      />
+
+      <Skill
+        image="img/icons/css3.png"
+        alt="CSS icon"
+        name="CSS"
+      />
+
+      <Skill
+        image="img/icons/sqlserver.png"
+        alt="SQL Server icon"
+        name="SQL Server"
+      />
+
+      <Skill
+        image="img/icons/nosql.png"
+        alt="NoSQL icon"
+        name="NoSQL"
+      />
+
+      <Skill
+        image="img/icons/postgresql.png"
+        alt="PostgreSQL icon"
+        name="PostgreSQL"
+      />
+
+      <Skill
+        image="img/icons/azure.png"
+        alt="Azure icon"
+        name="Azure"
+      />
+
+      <Skill
+        image="img/icons/aws.png"
+        alt="AWS icon"
+        name="AWS"
+      />
+    </div>
+  }
+
 	//adds the React elements to the page
 	ReactDOM.render(
 		<Projects />,
 		document.getElementById('projects'),
 		startingFunctions()
 	);
+
+  ReactDOM.render(
+    <Skills />,
+    document.getElementById('skillsContent'),
+  );
 
 	function startingFunctions() {
 		$(document).ready(function() {

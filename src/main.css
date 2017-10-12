@@ -172,22 +172,24 @@ table {
 #skillsContent {
 	text-align: left;
 	padding: 20px;
+	display: inline-block;
 }
 
-#skillsContent td {
-	font-size: 18px;
+#skillsContent div {
+	padding-bottom: 15px;
+	padding-left: 7%;
+	font-size: 16px;
+}
+
+#skillsContent span {
 	color: #34434B;
 	letter-spacing: .5px;
 	font-weight: bold;
-}
-
-#skillsContent td {
-	padding-bottom: 15px;
-	padding-left: 8%;
+	vertical-align: middle;
 }
 
 #skillsContent img {
-	max-height: 20px;
+	max-height: 22px;
 	padding-right: 10px;
 }
 
@@ -196,10 +198,6 @@ table {
 	width: 100%;
 	border-radius: 10px 10px 0 0;
 	padding: 18px;
-}
-
-#skillsTable td, #skillsTable th {
-	width: 25%;
 }
 
 .borderGrad {
@@ -326,12 +324,26 @@ table {
 		padding-right: 4px;
 	}
 
-	#skillsContent td {
-		padding-left: 0px;
+	#skillsContent div {
 		font-size: 14px;
 	}
 
 	.navlink {
+		margin-left: 10px;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	h1 {
+		font-size: 24px!important;
+	}
+
+	#skillsContent div {
+		padding-left: 0px;
+	}
+
+	.navlink {
 		margin-left: 5px;
+		font-size: 12px
 	}
 }
