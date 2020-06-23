@@ -62,6 +62,17 @@ $(function() {
 	function Projects() {
 		return (
 			<div>
+        <Project
+          title="Custom WordPress Plugin Development"
+          date="December 2018 - April 2019"
+          desc="A plugin for various functionality across an eCommerce website, including browsing based on tags and recommending similar items.
+          Implemented with prepared statements and HTML escaping to prevent introducing any vulnerabilities to the site."
+          listItems={["PHP", "CSS", "JavaScript"]}
+          //href="https://github.com/jackw117/stream-surfer"
+          image="img/wpplugin.jpg"
+          alt="WordPress image"
+        />
+
 				<Project
 					title="StreamSurfer"
 					date="January 2017 - May 2017"
@@ -129,12 +140,6 @@ $(function() {
       />
 
       <Skill
-        image="img/icons/asp.png"
-        alt="ASP.NET icon"
-        name="ASP.NET"
-      />
-
-      <Skill
         image="img/icons/netfoundation.png"
         alt=".NET Core icon"
         name=".NET Core"
@@ -144,6 +149,12 @@ $(function() {
         image="img/icons/java.png"
         alt="Java icon"
         name="Java"
+      />
+
+      <Skill
+        image="img/icons/cpp.png"
+        alt="C++ icon"
+        name="C++"
       />
 
       <Skill
@@ -183,33 +194,9 @@ $(function() {
       />
 
       <Skill
-        image="img/icons/sqlserver.png"
-        alt="SQL Server icon"
-        name="SQL Server"
-      />
-
-      <Skill
-        image="img/icons/nosql.png"
-        alt="NoSQL icon"
-        name="NoSQL"
-      />
-
-      <Skill
         image="img/icons/postgresql.png"
         alt="PostgreSQL icon"
         name="PostgreSQL"
-      />
-
-      <Skill
-        image="img/icons/azure.png"
-        alt="Azure icon"
-        name="Azure"
-      />
-
-      <Skill
-        image="img/icons/aws.png"
-        alt="AWS icon"
-        name="AWS"
       />
     </div>
   }
