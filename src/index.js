@@ -63,9 +63,19 @@ $(function() {
 		return (
 			<div>
         <Project
+          title="RuneScape Goal Tracker"
+          date="July 2020 - Current"
+          desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game called RuneScape. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data."
+          listItems={["Electron", "React", "jQuery", "SQL"]}
+          href="https://github.com/jackw117/rs-tracker"
+          image="img/tracker.PNG"
+          alt="RuneScape Goal Tracker image"
+        />
+
+        <Project
           title="Haskell Battleship"
           date="July 2020 - August 2020"
-          desc="A text-based game of battleship to be played against a computer opponent that makes educated guesses on where to fire."
+          desc="A text-based game of battleship to be played against a computer opponent that makes educated guesses on where to fire. Developed as a REPL with a custom parser and interpreter to evaluate user input."
           listItems={["Haskell"]}
           href="https://github.com/jackw117/haskell-battleship"
           image="img/battleship.PNG"
@@ -95,7 +105,7 @@ $(function() {
 				<Project
 					title="StreamSurfer Mobile"
 					date="February 2017 - March 2017"
-					desc="An Android application for StreamSurfer. The only added feature on the mobile app is the option to have notifications sent when a show on a user list is updated."
+					desc="An Android application for StreamSurfer, with mobile exclusive features like notifications when a show on a user list is updated."
 					listItems={["Android", "Java", "MVC"]}
 					href="https://github.com/jackw117/stream-surfer-android"
 					image="img/ssa.png"
