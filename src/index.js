@@ -28,7 +28,15 @@ $(function() {
 	    <li key={item}>{item}</li>
 	  );
 
+    var url;
+    if (props.href != null) {
+      url = <a href={props.href}><i className="fa fa-lg fa-github"></i>source code</a>
+    } else {
+      url = <p>source code unavailable</p>
+    }
+
 		return (
+
 			<div className="row">
 				<div className="container wow" data-wow-duration="2s">
 					<div className="col-xs-12 col-sm-12 col-md-6 desc vcenter">
@@ -38,7 +46,7 @@ $(function() {
 						<ul className="tags">
 							{listItems}
 						</ul>
-						<a href={props.href}><i className="fa fa-lg fa-github"></i>source code</a>
+						{url}
 					</div>
 
 					<div className="col-xs-12 col-sm-12 col-md-6 imgDiv vcenter">
@@ -62,10 +70,11 @@ $(function() {
 	function Projects() {
 		return (
 			<div>
+
         <Project
-          title="RuneScape Goal Tracker"
+          title="MMO Goal Tracker"
           date="July 2020 - Current"
-          desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game called RuneScape. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data."
+          desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data. (Design not final)"
           listItems={["Electron", "React", "jQuery", "SQL"]}
           href="https://github.com/jackw117/rs-tracker"
           image="img/tracker.PNG"
@@ -76,15 +85,25 @@ $(function() {
           title="Haskell Battleship"
           date="July 2020 - August 2020"
           desc="A text-based game of battleship to be played against a computer opponent that makes educated guesses on where to fire. Developed as a REPL with a custom parser and interpreter to evaluate user input."
-          listItems={["Haskell"]}
+          listItems={["Haskell", "REPL"]}
           href="https://github.com/jackw117/haskell-battleship"
           image="img/battleship.PNG"
           alt="Haskell Battleship image"
         />
 
         <Project
+          title="Distributed Memory Histogram Sort"
+          date="April 2020 - May 2020"
+          desc="Implemented a histogram sorting algorithm that splits data between processors so that each processor has a near equal amount of elements in sorted order. Developed with a focus on speed and efficiency using a mixture of MPI to split the task between multiple processors and OpenMP to further split up the task on each processor into multiple threads."
+          listItems={["C++", "OpenMP", "MPI", "Parallel Programming"]}
+          //href=
+          image="img/parallel.png"
+          alt="Parallel image"
+        />
+
+        <Project
           title="Custom WordPress Plugin Development"
-          date="December 2018 - April 2019"
+          date="January 2019 - March 2019"
           desc="A plugin for various functionality across an eCommerce website, including browsing based on tags and recommending similar items. Implemented with prepared statements and HTML escaping to prevent introducing any vulnerabilities to the site."
           listItems={["PHP", "CSS", "JavaScript"]}
           //href="https://github.com/jackw117/stream-surfer"
@@ -95,21 +114,11 @@ $(function() {
 				<Project
 					title="StreamSurfer"
 					date="January 2017 - May 2017"
-					desc="A search engine to find sources to stream movies and TV shows. Also acts as a database containing information on shows or movies similar to IMDb and user lists."
-					listItems={["C#", "PostgreSQL", ".NET Core", "REST", "MVC"]}
+					desc="An innovative search engine to find sources to stream movies and TV shows, with options to browse by categories, search for an entry, view details of the entry, and keep user accounts with custom lists. Developed as a website with a responsive mobile view, as well as an Android app."
+					listItems={["C#", "PostgreSQL", ".NET Core", "MVC", "Android", "Java"]}
 					href="https://github.com/jackw117/stream-surfer"
 					image="img/ss-home.png"
 					alt="StreamSurfer home image"
-				/>
-
-				<Project
-					title="StreamSurfer Mobile"
-					date="February 2017 - March 2017"
-					desc="An Android application for StreamSurfer, with mobile exclusive features like notifications when a show on a user list is updated."
-					listItems={["Android", "Java", "MVC"]}
-					href="https://github.com/jackw117/stream-surfer-android"
-					image="img/ssa.png"
-					alt="StreamSurfer Mobile search image"
 				/>
 
 				<Project
@@ -156,7 +165,7 @@ $(function() {
       <Skill
         image="img/icons/netfoundation.png"
         alt=".NET Core icon"
-        name=".NET Core"
+        name=".NET"
       />
 
       <Skill
@@ -190,12 +199,6 @@ $(function() {
       />
 
       <Skill
-        image="img/icons/angularjs.png"
-        alt="AngularJS icon"
-        name="AngularJS"
-      />
-
-      <Skill
         image="img/icons/html5.png"
         alt="HTML icon"
         name="HTML"
@@ -205,12 +208,6 @@ $(function() {
         image="img/icons/css3.png"
         alt="CSS icon"
         name="CSS"
-      />
-
-      <Skill
-        image="img/icons/postgresql.png"
-        alt="PostgreSQL icon"
-        name="PostgreSQL"
       />
     </div>
   }

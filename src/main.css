@@ -173,6 +173,7 @@ table {
 	text-align: left;
 	padding: 20px;
 	display: inline-block;
+	width: 100%;
 }
 
 #skillsContent div {
