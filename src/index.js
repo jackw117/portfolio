@@ -63,10 +63,19 @@ $(function() {
 		return (
 			<div>
         <Project
+          title="Haskell Battleship"
+          date="July 2020 - August 2020"
+          desc="A text-based game of battleship to be played against a computer opponent that makes educated guesses on where to fire."
+          listItems={["Haskell"]}
+          href="https://github.com/jackw117/haskell-battleship"
+          image="img/battleship.PNG"
+          alt="Haskell Battleship image"
+        />
+
+        <Project
           title="Custom WordPress Plugin Development"
           date="December 2018 - April 2019"
-          desc="A plugin for various functionality across an eCommerce website, including browsing based on tags and recommending similar items.
-          Implemented with prepared statements and HTML escaping to prevent introducing any vulnerabilities to the site."
+          desc="A plugin for various functionality across an eCommerce website, including browsing based on tags and recommending similar items. Implemented with prepared statements and HTML escaping to prevent introducing any vulnerabilities to the site."
           listItems={["PHP", "CSS", "JavaScript"]}
           //href="https://github.com/jackw117/stream-surfer"
           image="img/wpplugin.jpg"
@@ -76,8 +85,7 @@ $(function() {
 				<Project
 					title="StreamSurfer"
 					date="January 2017 - May 2017"
-					desc="A search engine to find sources to stream movies and TV shows.
-					Also acts as a database containing information on shows or movies similar to IMDb and user lists."
+					desc="A search engine to find sources to stream movies and TV shows. Also acts as a database containing information on shows or movies similar to IMDb and user lists."
 					listItems={["C#", "PostgreSQL", ".NET Core", "REST", "MVC"]}
 					href="https://github.com/jackw117/stream-surfer"
 					image="img/ss-home.png"
@@ -87,8 +95,7 @@ $(function() {
 				<Project
 					title="StreamSurfer Mobile"
 					date="February 2017 - March 2017"
-					desc="An Android application for StreamSurfer.
-					The only added feature on the mobile app is the option to have notifications sent when a show on a user list is updated."
+					desc="An Android application for StreamSurfer. The only added feature on the mobile app is the option to have notifications sent when a show on a user list is updated."
 					listItems={["Android", "Java", "MVC"]}
 					href="https://github.com/jackw117/stream-surfer-android"
 					image="img/ssa.png"
@@ -98,8 +105,7 @@ $(function() {
 				<Project
 					title="QuizDroid"
 					date="January 2017 - February 2017"
-					desc="An Android application that uses an online JSON file to generate quizzes.
-					Quiz information is stored in a singleton repository for easy access throughout the app."
+					desc="An Android application that uses an online JSON file to generate quizzes. Quiz information is stored in a singleton repository for easy access throughout the app."
 					listItems={["Android", "Java", "MVC"]}
 					href="https://github.com/jackw117/quizdroid"
 					image="img/qd.png"
@@ -109,8 +115,7 @@ $(function() {
 				<Project
 					title="CNN Wikipedia Search"
 					date="April 2016 - June 2016"
-					desc="A search engine for CNN articles with autocomplete suggestions that appear while a user types.
-					Autocomplete information is taken from a list of every Wikipedia page title, and stored in a trie data structure for fast suggestions as a user types."
+					desc="A search engine for CNN articles with autocomplete suggestions that appear while a user types. Autocomplete information is taken from a list of every Wikipedia page title, and stored in a trie data structure for fast suggestions as a user types."
 					listItems={["C#", "ASP.NET", "Azure", "jQuery", "Web Crawling"]}
 					href="https://github.com/jackw117/344-assignment-4"
 					image="img/cnnw.png"
@@ -120,8 +125,7 @@ $(function() {
 				<Project
 					title="ADP Trivia"
 					date="November 2015 - December 2015"
-					desc="A website for members of the University of Washington Anime Discovery Project (ADP) to answer trivia questions.
-					Information is displayed back to every user in real time."
+					desc="A website for members of the University of Washington Anime Discovery Project (ADP) to answer trivia questions. Information is displayed back to every user in real time."
 					listItems={["AngularJS", "Firebase"]}
 					href="https://github.com/jackw117/activity-answer-button"
 					image="img/adp.png"
