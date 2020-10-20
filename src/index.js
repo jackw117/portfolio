@@ -73,7 +73,7 @@ $(function() {
 
         <Project
           title="MMO Goal Tracker"
-          date="July 2020 - Current"
+          date="July 2020 - September 2020"
           desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data. (Design not final)"
           listItems={["Electron", "React", "jQuery", "SQL"]}
           href="https://github.com/jackw117/rs-tracker"
