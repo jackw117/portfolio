@@ -73,12 +73,22 @@ $(function() {
 
         <Project
           title="MMO Goal Tracker"
-          date="July 2020 - September 2020"
+          date="February 2021 - March 2021"
           desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data. (Design not final)"
-          listItems={["Electron", "React", "jQuery", "SQL"]}
+          listItems={["Electron", "React", "jQuery", "SQLite"]}
           href="https://github.com/jackw117/rs-tracker"
           image="img/tracker.PNG"
-          alt="RuneScape Goal Tracker image"
+          alt="MMO Goal Tracker image"
+        />
+
+        <Project
+          title="Stock Notification Website"
+          date="January 2021"
+          desc="A website that searches second-hand collectible websites and displays notifications when stock is availalbe on items that match given search terms. Developed with a PostgreSQL database, an MVT design pattern, user authentication, and unit testing."
+          listItems={["Python", "Django", "PostgreSQL", "Unit Testing"]}
+          href="https://github.com/jackw117/FigFinder"
+          image="img/tracker.PNG"
+          alt="Stock Notification Website Image"
         />
 
         <Project
