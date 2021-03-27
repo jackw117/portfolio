@@ -1,3 +1,11 @@
+#bucketDiv {
+	margin-top: 20px;
+}
+
+.bucket {
+	margin-top: 20px;
+}
+
 .currentItem {
 	color: red;
 }
