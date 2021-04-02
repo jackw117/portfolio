@@ -1,17 +1,14 @@
-const min = 10;
+const min = 5;
 const max = 100;
 const arraySize = 32;
 const bucketNum = 5;
 
+var interval = 20;
+
 $(document).ready(function() {
 
-  var bubbleSort = new BubbleSort(100);
-  var bucketSort = new BucketSort(100);
-  var insertionSort = new InsertionSort(500);
-  var mergeSort = new MergeSort(20);
-  var selectionSort = new SelectionSort(50);
-  var sortObject = mergeSort;
-  sortObject.display();
+  // default sort object
+  var sortObject = new BubbleSort(interval);
   console.log(sortObject)
 
   $("#nextStep").click(function() {
@@ -27,19 +24,52 @@ $(document).ready(function() {
   });
 
   $("#reset").click(function() {
+    sortObject.reset();
+  });
+
+  $("#stop").click(function() {
     sortObject.stop();
-    sortObject = new BubbleSort(100);
-    sortObject.display();
+  });
+
+  $(".sortButton").click(function() {
+    sortObject.stop();
+  });
+
+  $("#bubbleSort").click(function() {
+    sortObject = new BubbleSort(interval);
+  });
+
+  $("#bucketSort").click(function() {
+    sortObject = new BucketSort(interval);
+  });
+
+  $("#insertionSort").click(function() {
+    sortObject = new InsertionSort(interval);
+  });
+
+  $("#mergeSort").click(function() {
+    sortObject = new MergeSort(interval);
+  });
+
+  $("#quickSort").click(function() {
+    sortObject = new QuickSort(interval);
+  });
+
+  $("#selectionSort").click(function() {
+    sortObject = new SelectionSort(interval);
+  });
+
+  $("#shellSort").click(function() {
+    sortObject = new ShellSort(interval);
   });
 });
 
 class Sort {
-  intervalId;
-
   constructor(name, interval, array) {
     this.name = name;
     this.array = this.getArray(array);
     this.interval = interval;
+    this.display();
   }
 
   display(left, right, id) {
@@ -72,6 +102,17 @@ class Sort {
     }
   }
 
+  next(left, right, id) {
+    this.display(left, right, id)
+  }
+
+  reset() {
+    this.stop();
+    this.array = this.getArray();
+    this.interval = interval;
+    this.display();
+  }
+
   stop() {
     clearInterval(this.intervalId);
     return true;
@@ -84,13 +125,11 @@ class Sort {
   }
 }
 
+// TODO: optimize to stop once it detects no changes
 class BubbleSort extends Sort {
   constructor(interval) {
     super("Bubble Sort", interval);
-    this.i = 0;
-    this.j = 0;
-    this.first = this.array[0];
-    this.second = this.array[1];
+    this.setFields();
   }
 
   display() {
@@ -98,37 +137,47 @@ class BubbleSort extends Sort {
   }
 
   next() {
+    this.count++;
     if (this.i == arraySize - 1) {
       this.stop();
     } else {
-      if (this.j == arraySize - 1 - this.i) {
-        this.i = this.i + 1;
-        this.j = 0;
-      }
-      this.first = this.array[this.j];
-      this.second = this.array[this.j + 1]
-      if (this.first > this.second) {
-        this.array[this.j + 1] = this.first;
-        this.array[this.j] = this.second;
+      if (this.j == this.right) {
+        if (this.max == 0) {
+          this.stop();
+          this.i = arraySize - 1;
+        } else {
+          this.right = this.max;
+          this.max = 0;
+          this.i = this.i + 1;
+          this.j = -1;
+        }
+      } else if (this.array[this.j] > this.array[this.j + 1]) {
+        this.swap(this.j, this.j + 1);
+        this.max = this.j + 1;
       }
       this.j++;
     }
+    super.next(this.left, this.right);
+  }
+
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields() {
+    this.i = 0;
+    this.j = 0;
+    this.max = 0;
+    this.right = this.array.length - 1;
+    this.count = 0;
   }
 }
 
 class BucketSort extends Sort {
   constructor(interval) {
     super("Bucket Sort", interval);
-    this.i = 0;
-    this.j = 0;
-    this.buckets = [];
-    this.bucketsReact = [];
-    this.maxVal = Math.max.apply(null, this.array);
-    for (var i = 0; i < bucketNum; i++) {
-      this.buckets.push([]);
-      this.bucketsReact.push([]);
-    }
-    this.setup();
+    this.setFields();
   }
 
   display() {
@@ -178,6 +227,25 @@ class BucketSort extends Sort {
     }
   }
 
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields() {
+    this.insertion = null;
+    this.i = 0;
+    this.j = 0;
+    this.buckets = [];
+    this.bucketsReact = [];
+    this.maxVal = Math.max.apply(null, this.array);
+    for (var i = 0; i < bucketNum; i++) {
+      this.buckets.push([]);
+      this.bucketsReact.push([]);
+    }
+    this.setup();
+  }
+
   setup() {
     var buckets = [];
     for (var i = 0; i < bucketNum; i++) {
@@ -191,11 +259,9 @@ class BucketSort extends Sort {
 }
 
 class InsertionSort extends Sort {
-  constructor(interval, array) {
+  constructor(interval, array, gap, start) {
     super("Insertion Sort", interval, array);
-    this.left = 0;
-    this.right = 1;
-    this.currentRight = 1;
+    this.setFields(start, gap);
   }
 
   display(id) {
@@ -203,42 +269,48 @@ class InsertionSort extends Sort {
   }
 
   next() {
+    this.count++;
+    if (this.array[this.left] > this.array[this.currentRight]) {
+      this.swap(this.left, this.currentRight);
+      this.left -= this.gap;
+      this.currentRight -= this.gap;
+    } else {
+      this.right += this.gap;
+      this.currentRight = this.right;
+      this.left = this.right - this.gap;
+    }
+
+    // TODO: check if this insertion belongs to another object, and DON'T display if it does
+    // this.display();
     if (this.right >= this.array.length) {
       return this.stop();
-    } else {
-      if (this.array[this.left] > this.array[this.currentRight]) {
-        this.swap(this.left, this.currentRight);
-        this.left--;
-        this.currentRight--;
-      } else {
-        this.right++;
-        this.currentRight = this.right;
-        this.left = this.right - 1;
-      }
     }
+  }
+
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields(start, gap) {
+    this.left = start || 0;
+    this.gap = gap || 1;
+    this.right = this.gap + this.left;
+    this.currentRight = this.gap + this.left;
+    this.count = 0;
   }
 }
 
 // TODO: work on display
 class MergeSort extends Sort {
-  middle;
-
   constructor(interval) {
     super("Merge Sort", interval);
-    this.left = 0;
-    this.right = this.array.length;
-    this.i = 0;
-    this.size = 1;
-    this.lists = [];
-    this.newLists = [];
-    this.split = true;
-    this.combined = [];
-    this.lp = 0;
-    this.rp = 0;
+    this.setFields();
   }
 
   next() {
     // split
+    this.count++;
     if (this.split) {
       if (this.i == 0) {
         this.middle = this.array.length / (this.size * 2);
@@ -305,14 +377,32 @@ class MergeSort extends Sort {
       }
     }
   }
+
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields() {
+    this.combined = [];
+    this.count = 0;
+    this.i = 0;
+    this.left = 0;
+    this.lists = [];
+    this.lp = 0;
+    this.middle = 0;
+    this.newLists = [];
+    this.right = this.array.length;
+    this.rp = 0;
+    this.size = 1;
+    this.split = true;
+  }
 }
 
 class SelectionSort extends Sort {
   constructor(interval) {
     super("Selection Sort", interval);
-    this.left = 0;
-    this.right = 1;
-    this.minPos = 0;
+    this.setFields();
   }
 
   display() {
@@ -320,6 +410,7 @@ class SelectionSort extends Sort {
   }
 
   next() {
+    this.count++;
     if (this.left == this.array.length - 1) {
       this.stop();
     } else {
@@ -335,32 +426,156 @@ class SelectionSort extends Sort {
         this.right++;
       }
     }
+    this.display();
   }
-}
 
-// TODO:
-class QuickSort extends Sort {
-  constructor(interval) {
-    super("Quick Sort", interval);
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields() {
+    this.count = 0;
     this.left = 0;
-    this.right = this.array.length - 1;
-    this.pivot = 0;
+    this.minPos = 0;
+    this.right = 1;
   }
-
-  // display() {
-  //   super.display(this.current, this.right);
-  // }
-  //
-  // next() {
-  //   if (this.array[this.current] > this.array[this.right]) {
-  //     var tmp = this.array[this.current];
-  //     this.array[this.current] = this.array[this.right];
-  //     this.array[this.right] = tmp;
-  //     this.current = this.right;
-  //   }
-  // }
 }
 
+// TODO: work on display
+class QuickSort extends Sort {
+  constructor(interval, array) {
+    super("Quick Sort", interval, array);
+    this.setFields();
+  }
+
+  display() {
+    super.display();
+  }
+
+  next() {
+    this.count++;
+    var queue = this.current.next();
+    if (queue) {
+      this.queue.splice(this.index, 1, ...queue);
+      while (this.index < this.array.length && !this.queue[this.index].name) {
+        this.index++;
+      }
+      if (this.queue.length == this.array.length) {
+        this.array = this.queue;
+        this.stop();
+        this.display();
+      } else {
+        this.current = this.queue[this.index];
+      }
+    }
+  }
+
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields() {
+    this.count = 0;
+    this.current = new QuickSortStep(this.interval, this.array);
+    this.index = 0;
+    this.queue = [];
+  }
+}
+
+class QuickSortStep extends Sort {
+  constructor(interval, array) {
+    super("Quick Sort Step", interval, array);
+    this.left = 1;
+    this.pivot = 0;
+    this.lists = [[], [this.array[this.pivot]], []];
+  }
+
+  display() {
+    super.display(this.left, this.pivot);
+  }
+
+  next() {
+    if (this.left == this.array.length) {
+      this.stop();
+      var queue = [];
+      if (this.lists[0].length > 0) {
+        if (this.lists[0].length == 1) {
+          queue.push(this.lists[0][0]);
+        } else {
+          queue.push(new QuickSortStep(this.interval, this.lists[0]));
+        }
+      }
+      queue.push(this.array[this.pivot]);
+      if (this.lists[2].length > 0) {
+        if (this.lists[2].length == 1) {
+          queue.push(this.lists[2][0]);
+        } else {
+          queue.push(new QuickSortStep(this.interval, this.lists[2]));
+        }
+      }
+      return queue;
+    } else {
+      if (this.array[this.left] <= this.array[this.pivot]) {
+        this.lists[0].push(this.array[this.left]);
+      } else {
+        this.lists[2].push(this.array[this.left]);
+      }
+      this.left++;
+    }
+    super.next(this.left, this.pivot);
+  }
+}
+
+// TODO: display all elements being compared (only displays 2 currently)
+class ShellSort extends Sort {
+  constructor(interval) {
+    super("Shell Sort", interval);
+    this.setFields();
+  }
+
+  display() {
+    super.display(this.left, this.right + this.left);
+  }
+
+  next() {
+    this.count++;
+    this.display()
+
+    if (!this.insertion) {
+      console.log("left: " + this.array[this.left] + " right: " + this.array[this.left + this.gap])
+      this.insertion = new InsertionSort(this.interval, this.array, this.gap, this.left);
+    }
+
+    var flag = this.insertion.next();
+    if (flag) {
+      this.insertion = null;
+      this.left++;
+      if (this.left == this.gap) {
+        this.left = 0;
+        this.gap /= 2;
+      }
+    }
+
+    if (this.gap < 1) {
+      this.stop();
+    }
+  }
+
+  reset() {
+    this.setFields();
+    super.reset();
+  }
+
+  setFields() {
+    this.count = 0;
+    this.gap = this.array.length / 2;
+    this.insertion = null;
+    this.left = 0;
+    this.right = this.gap;
+  }
+}
 
 class Item extends React.Component {
   render() {
@@ -371,3 +586,6 @@ class Item extends React.Component {
     );
   }
 }
+
+// TODO: call display at the start of next (put it in super class), then call again after the last step of the algorithm
+// fix blue on reset click (doesn't happen on sort click)
