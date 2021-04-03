@@ -1,75 +1,78 @@
-const min = 5;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Item} from './components.js'
+
+const min = 10;
 const max = 100;
 const arraySize = 32;
 const bucketNum = 5;
 
 var interval = 20;
 
-$(document).ready(function() {
-
-  // default sort object
-  var sortObject = new BubbleSort(interval);
-  console.log(sortObject)
-
-  $("#nextStep").click(function() {
-    sortObject.next();
-    console.log(sortObject);
-  });
-
-  $("#start").click(function() {
-    sortObject.intervalId = setInterval(function() {
-      sortObject.next();
-      console.log(sortObject);
-    }, sortObject.interval);
-  });
-
-  $("#reset").click(function() {
-    sortObject.reset();
-  });
-
-  $("#stop").click(function() {
-    sortObject.stop();
-  });
-
-  $(".sortButton").click(function() {
-    sortObject.stop();
-  });
-
-  $("#bubbleSort").click(function() {
-    sortObject = new BubbleSort(interval);
-  });
-
-  $("#bucketSort").click(function() {
-    sortObject = new BucketSort(interval);
-  });
-
-  $("#insertionSort").click(function() {
-    sortObject = new InsertionSort(interval);
-  });
-
-  $("#mergeSort").click(function() {
-    sortObject = new MergeSort(interval);
-  });
-
-  $("#quickSort").click(function() {
-    sortObject = new QuickSort(interval);
-  });
-
-  $("#selectionSort").click(function() {
-    sortObject = new SelectionSort(interval);
-  });
-
-  $("#shellSort").click(function() {
-    sortObject = new ShellSort(interval);
-  });
-});
+// $(document).ready(function() {
+//
+//   // default sort object
+//   var sortObject = new BubbleSort(interval);
+//   console.log(sortObject)
+//
+//   $("#nextStep").click(function() {
+//     sortObject.next();
+//     console.log(sortObject);
+//   });
+//
+//   $("#start").click(function() {
+//     sortObject.intervalId = setInterval(function() {
+//       sortObject.next();
+//       console.log(sortObject);
+//     }, sortObject.interval);
+//   });
+//
+//   $("#reset").click(function() {
+//     sortObject.reset();
+//   });
+//
+//   $("#stop").click(function() {
+//     sortObject.stop();
+//   });
+//
+//   $(".sortButton").click(function() {
+//     sortObject.stop();
+//   });
+//
+//   $("#bubbleSort").click(function() {
+//     sortObject = new BubbleSort(interval);
+//   });
+//
+//   $("#bucketSort").click(function() {
+//     sortObject = new BucketSort(interval);
+//   });
+//
+//   $("#insertionSort").click(function() {
+//     sortObject = new InsertionSort(interval);
+//   });
+//
+//   $("#mergeSort").click(function() {
+//     sortObject = new MergeSort(interval);
+//   });
+//
+//   $("#quickSort").click(function() {
+//     sortObject = new QuickSort(interval);
+//   });
+//
+//   $("#selectionSort").click(function() {
+//     sortObject = new SelectionSort(interval);
+//   });
+//
+//   $("#shellSort").click(function() {
+//     sortObject = new ShellSort(interval);
+//   });
+// });
 
 class Sort {
   constructor(name, interval, array) {
     this.name = name;
     this.array = this.getArray(array);
     this.interval = interval;
-    this.display();
   }
 
   display(left, right, id) {
@@ -82,7 +85,7 @@ class Sort {
       list.push(React.createElement(Item, {num: this.array[i], key: this.array[i] + " " + i, color: color}));
     }
     if (!id) {
-      id = 'algorithmDiv'
+      id = 'tableBody'
     }
     ReactDOM.render(
       list,
@@ -102,8 +105,8 @@ class Sort {
     }
   }
 
-  next(left, right, id) {
-    this.display(left, right, id)
+  next(id) {
+    this.display(id)
   }
 
   reset() {
@@ -125,7 +128,6 @@ class Sort {
   }
 }
 
-// TODO: optimize to stop once it detects no changes
 class BubbleSort extends Sort {
   constructor(interval) {
     super("Bubble Sort", interval);
@@ -157,7 +159,7 @@ class BubbleSort extends Sort {
       }
       this.j++;
     }
-    super.next(this.left, this.right);
+    super.next();
   }
 
   reset() {
@@ -199,6 +201,7 @@ class BucketSort extends Sort {
   }
 
   next() {
+    this.count++;
     if (this.i < this.array.length) {
       var index = Math.floor(bucketNum * this.array[this.i] / (max + 1));
       this.buckets[index].push(this.array[this.i]);
@@ -209,6 +212,7 @@ class BucketSort extends Sort {
     } else if (this.j < bucketNum) {
       if (!this.insertion) {
         this.insertion = new InsertionSort(this.interval, this.buckets[this.j]);
+        this.count++;
       }
       var flag = this.insertion.next();
       this.insertion.display('bucket' + this.j);
@@ -233,6 +237,7 @@ class BucketSort extends Sort {
   }
 
   setFields() {
+    this.count = 0;
     this.insertion = null;
     this.i = 0;
     this.j = 0;
@@ -577,15 +582,4 @@ class ShellSort extends Sort {
   }
 }
 
-class Item extends React.Component {
-  render() {
-    return (
-      React.createElement('div', {style: {width: (this.props.num / max * 100) + "%", backgroundColor: this.props.color, className: 'item'}},
-        React.createElement('span', {}, this.props.num)
-      )
-    );
-  }
-}
-
-// TODO: call display at the start of next (put it in super class), then call again after the last step of the algorithm
-// fix blue on reset click (doesn't happen on sort click)
+export {BubbleSort, BucketSort, InsertionSort, MergeSort, SelectionSort, QuickSort, ShellSort};

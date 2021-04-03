@@ -348,3 +348,34 @@ table {
 		font-size: 12px
 	}
 }
+
+
+
+/* ALGORITHMS */
+
+
+#bucketDiv {
+	margin-top: 20px;
+}
+
+#table {
+	height: 500px;
+	width: 75%;
+	--color: red;
+}
+
+#tableBody {
+
+}
+
+.bucket {
+	margin-top: 20px;
+}
+
+.currentItem {
+	color: red;
+}
+
+.item {
+	display: inline-block;
+}

@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import $ from 'jquery';
 import WOW from 'wow.js'
 import './main.css';
 import './animate.css';
+import {BubbleSort, BucketSort, InsertionSort, MergeSort, SelectionSort, QuickSort, ShellSort} from './algorithms.js'
+import {Project, Skill} from './components.js'
 
 const wow = new WOW({
   boxClass: 'wow',
@@ -11,6 +14,9 @@ const wow = new WOW({
   offset: 0,
   live: true
 });
+
+var sort = new BubbleSort(100);
+console.log(sort);
 
 wow.init();
 
@@ -21,60 +27,26 @@ $(function() {
 	var projectTop = 0;
 	var contactTop = 0;
 
-	//React function to create a project element
-	function Project(props) {
-		const li = props.listItems;
-	  const listItems = li.map((item) =>
-	    <li key={item}>{item}</li>
-	  );
-
-    var url;
-    if (props.href != null) {
-      url = <a href={props.href}><i className="fa fa-lg fa-github"></i>source code</a>
-    } else {
-      url = <p>source code unavailable</p>
-    }
-
-		return (
-
-			<div className="row">
-				<div className="container wow" data-wow-duration="2s">
-					<div className="col-xs-12 col-sm-12 col-md-6 desc vcenter">
-						<h1>{props.title}</h1>
-						<h2>{props.date}</h2>
-						<p>{props.desc}</p>
-						<ul className="tags">
-							{listItems}
-						</ul>
-						{url}
-					</div>
-
-					<div className="col-xs-12 col-sm-12 col-md-6 imgDiv vcenter">
-						<img src={props.image} alt={props.alt}/>
-					</div>
-				</div>
-			</div>
-		);
-	}
-
-  function Skill(props) {
-    return (
-      <div className="col-xs-6 col-sm-6 col-md-4">
-        <img src={props.image} alt={props.alt}></img>
-        <span>{props.name}</span>
-      </div>
-    );
-  }
+  $("#modalButton").click(function() {
+    $("#modal").addClass("is-active");
+  });
 
 	//React function to create multiple project elements with specified information
 	function Projects() {
 		return (
 			<div>
+        <Project
+          title="Sorting Algorithm Visualizer"
+          date="April 2021"
+          desc="A web page that shows visualizations for various sorting algorithms. Allows for step-by-step progression of the algorithms to give a better understanding of how they work."
+          listItems={["React", "JavaScript"]}
+          href="https://github.com/jackw117/portfolio"
+        />
 
         <Project
           title="MMO Goal Tracker"
           date="February 2021 - March 2021"
-          desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data. (Design not final)"
+          desc="A desktop app where users can create and edit goals, and set timers for recurring events in an online video game. Utilizes a SQLite database to allow for dependencies between goals, with checks and prepared statements to validate data."
           listItems={["Electron", "React", "jQuery", "SQLite"]}
           href="https://github.com/jackw117/rs-tracker"
           image="img/tracker.PNG"
@@ -87,13 +59,12 @@ $(function() {
           desc="A website that searches second-hand collectible websites and displays notifications when stock is availalbe on items that match given search terms. Developed with a PostgreSQL database, an MVT design pattern, user authentication, and unit testing."
           listItems={["Python", "Django", "PostgreSQL", "Unit Testing"]}
           href="https://github.com/jackw117/FigFinder"
-          image="img/tracker.PNG"
           alt="Stock Notification Website Image"
         />
 
         <Project
           title="Haskell Battleship"
-          date="July 2020 - August 2020"
+          date="August 2020"
           desc="A text-based game of battleship to be played against a computer opponent that makes educated guesses on where to fire. Developed as a REPL with a custom parser and interpreter to evaluate user input."
           listItems={["Haskell", "REPL"]}
           href="https://github.com/jackw117/haskell-battleship"
@@ -103,10 +74,9 @@ $(function() {
 
         <Project
           title="Distributed Memory Histogram Sort"
-          date="April 2020 - May 2020"
+          date="April 2020"
           desc="Implemented a histogram sorting algorithm that splits data between processors so that each processor has a near equal amount of elements in sorted order. Developed with a focus on speed and efficiency using a mixture of MPI to split the task between multiple processors and OpenMP to further split up the task on each processor into multiple threads."
           listItems={["C++", "OpenMP", "MPI", "Parallel Programming"]}
-          //href=
           image="img/parallel.png"
           alt="Parallel image"
         />
@@ -133,7 +103,7 @@ $(function() {
 
 				<Project
 					title="QuizDroid"
-					date="January 2017 - February 2017"
+					date="February 2017"
 					desc="An Android application that uses an online JSON file to generate quizzes. Quiz information is stored in a singleton repository for easy access throughout the app."
 					listItems={["Android", "Java", "MVC"]}
 					href="https://github.com/jackw117/quizdroid"
@@ -153,7 +123,7 @@ $(function() {
 
 				<Project
 					title="ADP Trivia"
-					date="November 2015 - December 2015"
+					date="November 2015"
 					desc="A website for members of the University of Washington Anime Discovery Project (ADP) to answer trivia questions. Information is displayed back to every user in real time."
 					listItems={["AngularJS", "Firebase"]}
 					href="https://github.com/jackw117/activity-answer-button"
