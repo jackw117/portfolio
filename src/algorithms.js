@@ -2,84 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Item} from './components.js'
 
-const min = 10;
-const max = 100;
-const arraySize = 32;
-const bucketNum = 5;
+const min = 10;             // minimum element value
+const max = 100;            // maximum element value
+const arraySize = 32;       // size of the array for each sorting object
+const bucketNum = 5;        // number of buckets used in the 'BucketSort' object
 
-var interval = 20;
+var interval = 20;          // interval length in milliseconds
 
-// $(document).ready(function() {
-//
-//   // default sort object
-//   var sortObject = new BubbleSort(interval);
-//   console.log(sortObject)
-//
-//   $("#nextStep").click(function() {
-//     sortObject.next();
-//     console.log(sortObject);
-//   });
-//
-//   $("#start").click(function() {
-//     sortObject.intervalId = setInterval(function() {
-//       sortObject.next();
-//       console.log(sortObject);
-//     }, sortObject.interval);
-//   });
-//
-//   $("#reset").click(function() {
-//     sortObject.reset();
-//   });
-//
-//   $("#stop").click(function() {
-//     sortObject.stop();
-//   });
-//
-//   $(".sortButton").click(function() {
-//     sortObject.stop();
-//   });
-//
-//   $("#bubbleSort").click(function() {
-//     sortObject = new BubbleSort(interval);
-//   });
-//
-//   $("#bucketSort").click(function() {
-//     sortObject = new BucketSort(interval);
-//   });
-//
-//   $("#insertionSort").click(function() {
-//     sortObject = new InsertionSort(interval);
-//   });
-//
-//   $("#mergeSort").click(function() {
-//     sortObject = new MergeSort(interval);
-//   });
-//
-//   $("#quickSort").click(function() {
-//     sortObject = new QuickSort(interval);
-//   });
-//
-//   $("#selectionSort").click(function() {
-//     sortObject = new SelectionSort(interval);
-//   });
-//
-//   $("#shellSort").click(function() {
-//     sortObject = new ShellSort(interval);
-//   });
-// });
-
+// base class extended by the specific sorting algorithms
 class Sort {
+  // sets the fields used by all of the specific sorting algorithms
   constructor(name, interval, array) {
     this.name = name;
     this.array = this.getArray(array);
     this.interval = interval;
   }
 
-  display(left, right, id) {
+  // creates a React array of the current position of elements and displays them on the page, using either the 'id' parameter or '#tableBody'
+  // 'left' and 'right' represent the current elements being compared in the sorting algorithm
+  display(indices, id) {
     var list = [];
+
     for (var i = 0; i < this.array.length; i++) {
       var color = "red";
-      if (i == left || i == right) {
+      if (indices.includes(i)) {
         color = "blue";
       }
       list.push(React.createElement(Item, {num: this.array[i], key: this.array[i] + " " + i, color: color}));
@@ -93,6 +39,7 @@ class Sort {
     );
   }
 
+  // sets array field either to the given parameter or a new random array
   getArray(array) {
     if (array) {
       return array;
@@ -105,10 +52,7 @@ class Sort {
     }
   }
 
-  next(id) {
-    this.display(id)
-  }
-
+  // resets the fields in the sort object and gets a new random array to mimic creating a new object
   reset() {
     this.stop();
     this.array = this.getArray();
@@ -116,11 +60,13 @@ class Sort {
     this.display();
   }
 
+  // clears the currently running interval
   stop() {
     clearInterval(this.intervalId);
     return true;
   }
 
+  // swaps two elements in the array given their index positions
   swap(left, right) {
     var temp = this.array[left];
     this.array[left] = this.array[right];
@@ -132,47 +78,60 @@ class BubbleSort extends Sort {
   constructor(interval) {
     super("Bubble Sort", interval);
     this.setFields();
+    this.display();
   }
 
+  // calls the super display method with the 'current' and 'current' + 1 values
   display() {
-    super.display(this.j, this.j - 1);
+    super.display([this.current, this.current + 1]);
   }
 
+  // represents a single step of the sorting algorithm
   next() {
     this.count++;
+    // stops the algorithm on the 'arraySize - 1' iteration
     if (this.i == arraySize - 1) {
       this.stop();
-    } else {
-      if (this.j == this.right) {
-        if (this.max == 0) {
-          this.stop();
-          this.i = arraySize - 1;
-        } else {
-          this.right = this.max;
-          this.max = 0;
-          this.i = this.i + 1;
-          this.j = -1;
-        }
-      } else if (this.array[this.j] > this.array[this.j + 1]) {
-        this.swap(this.j, this.j + 1);
-        this.max = this.j + 1;
-      }
-      this.j++;
     }
-    super.next();
+    // swaps two elements in the array if the element at the 'current' index is greater than the element at the 'current' + 1 index
+    else if (this.array[this.current] > this.array[this.current + 1]) {
+      this.swap(this.current, this.current + 1);
+      this.moved = this.current + 1;
+    }
+    this.current++;
+
+    // the current pointer has reached the right boundary
+    if (this.current == this.rightBound) {
+      // stop the algorithm if no elements have moved in the current iteration
+      if (this.moved == 0) {
+        this.stop();
+        this.i = arraySize - 1;
+      }
+      // reset certain fields for the next iteration
+      else {
+        this.rightBound = this.moved;
+        this.moved = 0;
+        this.i = this.i + 1;
+        this.current = 0;
+      }
+    }
+
+    this.display();
   }
 
+  // calls the setFields method, and the super reset method
   reset() {
     this.setFields();
     super.reset();
   }
 
+  // sets the fields to their default values
   setFields() {
-    this.i = 0;
-    this.j = 0;
-    this.max = 0;
-    this.right = this.array.length - 1;
-    this.count = 0;
+    this.i = 0;                                 // current iteration
+    this.current = 0;                           // current index
+    this.moved = 0;                             // index of last element that moved
+    this.rightBound = this.array.length - 1;    // index where the values of every index >= 'rightBound' in the array are sorted
+    this.count = 0;                             // number of times the next method has been called
   }
 }
 
@@ -180,10 +139,11 @@ class BucketSort extends Sort {
   constructor(interval) {
     super("Bucket Sort", interval);
     this.setFields();
+    this.display();
   }
 
   display() {
-    super.display(this.i);
+    super.display([this.i]);
   }
 
   displayBucket(index) {
@@ -267,10 +227,11 @@ class InsertionSort extends Sort {
   constructor(interval, array, gap, start) {
     super("Insertion Sort", interval, array);
     this.setFields(start, gap);
+    this.display();
   }
 
   display(id) {
-    super.display(this.left, this.currentRight, id);
+    super.display([this.left, this.currentRight], id);
   }
 
   next() {
@@ -311,6 +272,7 @@ class MergeSort extends Sort {
   constructor(interval) {
     super("Merge Sort", interval);
     this.setFields();
+    this.display();
   }
 
   next() {
@@ -408,42 +370,50 @@ class SelectionSort extends Sort {
   constructor(interval) {
     super("Selection Sort", interval);
     this.setFields();
+    this.display();
   }
 
+  // calls the super display method with the index of the current smallest element and current index in the iteration
   display() {
-    super.display(this.minPos, this.right);
+    super.display([this.left, this.minPos, this.right]);
   }
 
+  // a single step of the algorithm
   next() {
     this.count++;
+    // stops the algorithm when the left pointer reaches the last element
     if (this.left == this.array.length - 1) {
       this.stop();
-    } else {
-      if (this.right == this.array.length) {
-        this.swap(this.left, this.minPos);
-        this.left++;
-        this.right = this.left + 1;
-        this.minPos = this.left;
-      } else {
-        if (this.array[this.minPos] > this.array[this.right]) {
-          this.minPos = this.right;
-        }
-        this.right++;
-      }
+    }
+    // find smaller element between those referenced by 'minPos' and 'right'
+    else if (this.array[this.minPos] > this.array[this.right]) {
+      this.minPos = this.right;
+    }
+    this.right++;
+
+    // swap the elements at 'minPos' and 'left' when the 'right' pointer has reached the end of the array
+    // sets up next iteration by moving pointers
+    if (this.right == this.array.length) {
+      this.swap(this.left, this.minPos);
+      this.left++;
+      this.right = this.left + 1;
+      this.minPos = this.left;
     }
     this.display();
   }
 
+  // calls the setFields method, and the super reset method
   reset() {
     this.setFields();
     super.reset();
   }
 
+  // sets the fields used by the 'SelectionSort' object
   setFields() {
-    this.count = 0;
-    this.left = 0;
-    this.minPos = 0;
-    this.right = 1;
+    this.count = 0;       // number of times next() has been called
+    this.left = 0;        // left pointer
+    this.minPos = 0;      // pointer to the index of the smallest element in the array
+    this.right = 1;       // right pointer
   }
 }
 
@@ -452,6 +422,7 @@ class QuickSort extends Sort {
   constructor(interval, array) {
     super("Quick Sort", interval, array);
     this.setFields();
+    this.display();
   }
 
   display() {
@@ -498,7 +469,7 @@ class QuickSortStep extends Sort {
   }
 
   display() {
-    super.display(this.left, this.pivot);
+    super.display([this.left, this.pivot]);
   }
 
   next() {
@@ -529,56 +500,73 @@ class QuickSortStep extends Sort {
       }
       this.left++;
     }
-    super.next(this.left, this.pivot);
+    this.display();
   }
 }
 
-// TODO: display all elements being compared (only displays 2 currently)
+// an implementation of the shell sort algorithm
+// elements in the array are sorted with the InsertionSort algorithm, but with a smaller set of elements to compare
+// each new InsertionSort object compares elements with indices given by:
+// [left, left + gap, left + 2*gap, ... , left + n*gap] where 'left + n*gap' is the final index with this pattern that still fits in the array
+// the gap decreases after the left index pointer becomes equal to the current gap, until it reaches a value of 1 and the final InsertionSort object runs on the entire partially sorted array
 class ShellSort extends Sort {
   constructor(interval) {
     super("Shell Sort", interval);
     this.setFields();
+    this.display();
   }
 
+  // calls the super display function with the indices of the array of elements being compared
   display() {
-    super.display(this.left, this.right + this.left);
+    var indices = [];
+    for (var i = this.left; i < this.array.length; i += this.gap) {
+      indices.push(i);
+    }
+    super.display(indices);
   }
 
+  // a single step in the sorting algorithm
   next() {
     this.count++;
-    this.display()
-
-    if (!this.insertion) {
-      console.log("left: " + this.array[this.left] + " right: " + this.array[this.left + this.gap])
-      this.insertion = new InsertionSort(this.interval, this.array, this.gap, this.left);
-    }
-
-    var flag = this.insertion.next();
-    if (flag) {
-      this.insertion = null;
-      this.left++;
-      if (this.left == this.gap) {
-        this.left = 0;
-        this.gap /= 2;
-      }
-    }
-
+    // stops the algorithm when the gap is less than 1 (this indicates all elements are sorted)
     if (this.gap < 1) {
       this.stop();
+    } else {
+      // creates a new InsertionSort object if one doesn't exist
+      if (!this.insertion) {
+        this.insertion = new InsertionSort(this.interval, this.array, this.gap, this.left);
+      }
+
+      // calls the next method on the InsertionSort object, and returns true if the sorting algorithm has finished
+      var flag = this.insertion.next();
+
+      // reset InsertionSort object and update fields for the next step
+      if (flag) {
+        this.insertion = null;
+        this.left++;
+
+        // lower the gap between objects once the left index pointer is equal to the gap
+        if (this.left == this.gap) {
+          this.left = 0;
+          this.gap /= 2;
+        }
+      }
     }
+    this.display();
   }
 
+  // resets the necessary fields to mimic creating a new object
   reset() {
     this.setFields();
     super.reset();
   }
 
+  // sets the fields in the object to their default values
   setFields() {
-    this.count = 0;
-    this.gap = this.array.length / 2;
-    this.insertion = null;
-    this.left = 0;
-    this.right = this.gap;
+    this.count = 0;                       // number of times next() has been called
+    this.gap = this.array.length / 2;     // the space between elements being compared in the array
+    this.insertion = null;                // current InsertionSort object
+    this.left = 0;                        // current left index
   }
 }
 

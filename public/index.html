@@ -13,6 +13,8 @@
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
 
         <title>Jack Whitesell</title>
     </head>
@@ -35,6 +37,41 @@
                 </ul>
             </div>
         </nav>
+
+        <div id="algorithmModal" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card" id="algorithmCard">
+            <header class="modal-card-head">
+              <h2 class="modal-card-title">Sorting Algorithms</h2>
+              <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              <table id="table" class="charts-css column show-labels">
+                <tbody id="tableBody"></tbody>
+              </table>
+
+              <button id="start">Start</button>
+              <button id="nextStep">Next step</button>
+              <button id="reset">Reset</button>
+              <button id="stop">Stop</button>
+
+              <div id="sortSelectDiv">
+                <button class="sortButton" id="bubbleSort">Bubble Sort</button>
+                <button class="sortButton" id="bucketSort">Bucket Sort</button>
+                <button class="sortButton" id="insertionSort">Insertion Sort</button>
+                <button class="sortButton" id="mergeSort">Merge Sort</button>
+                <button class="sortButton" id="quickSort">Quick Sort</button>
+                <button class="sortButton" id="selectionSort">Selection Sort</button>
+                <button class="sortButton" id="shellSort">Shell Sort</button>
+              </div>
+
+              <div id="bucketDiv"></div>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-large closeButton">Close</button>
+            </footer>
+          </div>
+        </div>
 
         <div class="redirect" id="about">
             <div class="container" id="aboutContainer">

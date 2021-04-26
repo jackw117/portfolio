@@ -353,6 +353,9 @@ table {
 
 /* ALGORITHMS */
 
+#algorithmCard {
+	width: 80% !important;
+}
 
 #bucketDiv {
 	margin-top: 20px;
